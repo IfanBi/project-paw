@@ -179,7 +179,7 @@
             <div class="col-md-7 text-center">
               <div class="block-heading-1" data-aos="fade-up" data-aos-delay="">
                 <h2>About Us</h2>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <p>Kost pro eaaaaaaa</p>
               </div>
             </div>
           </div>
