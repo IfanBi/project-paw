@@ -40,13 +40,13 @@
       <hr class="sidebar-divider my-0">
 
       <li class="nav-item">
-        <a class="nav-link"  href="<?= base_url('penyewa/'); ?>">
+        <a class="nav-link"  href="<?= base_url('penyewa/kamarsaya'); ?>">
           <i class="fas fa-fw fa-person-booth"></i>
           <span>Kamar Saya</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link"  href="<?= base_url('penyewa/'); ?>">
+        <a class="nav-link"  href="<?= base_url('penyewa/daftarkamar'); ?>">
           <i class="fas fa-fw fa-list-alt"></i>
           <span>Daftar Kamar</span>
         </a>

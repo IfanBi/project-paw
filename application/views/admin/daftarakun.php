@@ -117,17 +117,19 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
+          <div class="mb-4">
+            <?= $this->session->flashdata('message'); ?>
+          </div>
           <div class="row">
             <!-- Area Chart -->
             <div class="col-lg-6 mb-4">
               <div class="card shadow mb-4">
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Daftar Akun</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Daftar Akun User</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <?= $this->session->flashdata('message'); ?>
                   <table class="table table-hover">
                     <thead>
                       <tr>
@@ -140,6 +142,39 @@
                       <?php foreach ($daftarakun->result_array() as $row): ?>
                         <tr>
                           <td><?=$row['nama_penyewa']?></td>
+                          <td><?=$row['username']?></td>
+                          <td>
+                            <a class="btn btn-primary btn-sm" href="<?= base_url('admin/resetpass/'.$row['username']); ?>">Reset Password</a>
+                          </td>
+                        </tr>
+                      <?php endforeach ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow mb-4">
+                <!-- Card Header -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Daftar Akun Admin</h6>
+                  <a class="btn btn-primary btn-sm" href="<?= base_url('admin/'); ?>">Tambah</a>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Nama</th>
+                        <th>Username</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach ($akunadmin->result_array() as $row): ?>
+                        <tr>
+                          <td><?=$row['nama_admin']?></td>
                           <td><?=$row['username']?></td>
                           <td>
                             <a class="btn btn-primary btn-sm" href="<?= base_url('admin/resetpass/'.$row['username']); ?>">Reset Password</a>

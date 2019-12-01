@@ -30,6 +30,11 @@ class Admin extends CI_Controller
 			FROM tbl_penyewa a, tbl_akun b 
 			WHERE a.username=b.username'
 		);
+		$data['akunadmin'] = $this->db->query(
+			'SELECT a.nama_admin, b.username, b.password
+			FROM tbl_admin a, tbl_akun b 
+			WHERE a.username=b.username'
+		);
 		$this->load->view('admin/daftarakun', $data);
 	}
 

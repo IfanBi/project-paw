@@ -45,13 +45,13 @@
           <span>Kamar Saya</span>
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link"  href="<?= base_url('penyewa/daftarkamar'); ?>">
           <i class="fas fa-fw fa-list-alt"></i>
           <span>Daftar Kamar</span>
         </a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link"  href="<?= base_url('penyewa/kontakadmin'); ?>">
           <i class="fas fa-fw fa-phone-square-alt"></i>
           <span>Kontak Admin</span>
@@ -116,42 +116,57 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
+
           <div class="row">
             <!-- Area Chart -->
             <div class="col-lg-6 mb-4">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Kontak Admin</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Daftar Kamar Tersedia</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-area">
-                    <table class="table table-hover">
-                      <thead>
+                  <?= $this->session->flashdata('message'); ?>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Harga</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach ($kamartersedia->result_array() as $row): ?>
                         <tr>
-                          <th>Nama</th>
-                          <th>Alamat</th>
-                          <th>Telepon</th>
+                          <td><?=$row['id_kamar']?></td>
+                          <td><?=$row['harga_kamar']?></td>
+                          <td>
+                            <?php if ($row['status_kamar']==1): ?>
+                              <span class="badge badge-success">Tersedia</span>
+                            <?php endif ?>
+                            <?php if ($row['status_kamar']==0): ?>
+                              <span class="badge badge-danger">Tidak Tersedia</span>
+                            <?php endif ?>
+                          </td>
+                          <td>
+                            <a class="btn btn-primary btn-sm" href="<?= base_url('penyewa/'); ?>">Sewa Kamar</a>
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        <?php foreach ($kontakadmin->result_array() as $row): ?>
-                          <tr>
-                            <td><?=$row['nama_admin']?></td>
-                            <td><?=$row['alamat_admin']?></td>
-                            <td><?=$row['telp_admin']?></td>
-                          </tr>
-                        <?php endforeach ?>
-                      </tbody>
-                    </table>
+                      <?php endforeach ?>
+                    </tbody>
+                  </table>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </div>            
+
         </div>
         <!-- /.container-fluid -->
+
       </div>
       <!-- End of Main Content -->
 
@@ -164,6 +179,7 @@
         </div>
       </footer>
       <!-- End of Footer -->
+
     </div>
     <!-- End of Content Wrapper -->
 

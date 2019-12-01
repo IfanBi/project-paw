@@ -29,4 +29,23 @@ class Penyewa extends CI_Controller
 		);
 		$this->load->view('penyewa/kontakadmin', $data);
 	}
+	public function kamarsaya()
+	{
+		$data['useractive'] = $this->db->get_where('tbl_penyewa', ['username'=>$this->session->userdata('username')])->row_array();
+		$data['kontakadmin'] = $this->db->query(
+			'SELECT nama_admin, alamat_admin, telp_admin
+			FROM tbl_admin'
+		);
+		$this->load->view('penyewa/kamarsaya', $data);
+	}
+	public function daftarkamar()
+	{
+		$data['useractive'] = $this->db->get_where('tbl_penyewa', ['username'=>$this->session->userdata('username')])->row_array();
+		$data['kamartersedia'] = $this->db->query(
+			'SELECT *
+			FROM tbl_kamar
+			WHERE status_kamar=1'
+		);
+		$this->load->view('penyewa/daftarkamar', $data);
+	}
 }
