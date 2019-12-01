@@ -377,7 +377,7 @@
         </div>
         <div class="row">
           <div class="col-lg-12 mb-5" data-aos="fade-up" data-aos-delay="100">
-           <div class="bg-white p-3 p-md-5">
+            <div class="bg-white p-3 p-md-5">
               <h3 class="text-black mb-4">Contact Info</h3>
               <ul class="list-unstyled footer-link">
                 <li class="d-block mb-3">
