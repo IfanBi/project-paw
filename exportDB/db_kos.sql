@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Nov 2019 pada 09.11
+-- Waktu pembuatan: 02 Des 2019 pada 16.22
 -- Versi server: 10.1.30-MariaDB
 -- Versi PHP: 7.2.2
 
@@ -60,8 +60,8 @@ CREATE TABLE `tbl_akun` (
 --
 
 INSERT INTO `tbl_akun` (`username`, `password`, `level`) VALUES
-('admin', '$2y$10$D9DZVq67FF.yDsw5m4NlrO79l43dHboQYRQpgIlgy6C.SFahsbKT6', 1),
-('denikos', '$2y$10$c5z7NdClqiidVnvMlEYg1.P52h32DX8mwUeEafT/7wIfW72vKv4ya', 2),
+('admin', '$2y$10$cZK1TAh2Kj9yRrbdDY9i0ug2hbMhTBJfov7EoBPvbhEf8H41xBSYW', 1),
+('denikos', '$2y$10$4rM0DGewOfpAE2G4KTEFQOtY2X.tMV92sSXJPw/upp6yPKH5K.l8q', 2),
 ('ifankos', '$2y$10$dHhNgM3gW0dmXYwMVdKeB.A2nFQnNNp7v.7.awuxgHaLS6yYLwOMi', 2),
 ('luqman', '$2y$10$m73obvBpffO7EERFZCcS3.Ae4HhEMwPbJ0SJsdUEGWxseaG9.6F5K', 2);
 
@@ -82,7 +82,7 @@ CREATE TABLE `tbl_kamar` (
 --
 
 INSERT INTO `tbl_kamar` (`id_kamar`, `harga_kamar`, `status_kamar`) VALUES
-(1, 500000, 1),
+(1, 500000, 0),
 (2, 500000, 0);
 
 -- --------------------------------------------------------
@@ -107,6 +107,30 @@ INSERT INTO `tbl_penyewa` (`id_penyewa`, `nama_penyewa`, `alamat_penyewa`, `telp
 (1, 'Ifan Binasrillah', 'Sumenep', '085111111111', 'ifankos'),
 (2, 'Deni', 'Sumenep', '085222222222', 'denikos'),
 (5, 'Luqman', 'Lamongan', '08888888888', 'luqman');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_sewa`
+--
+
+CREATE TABLE `tbl_sewa` (
+  `id_sewa` int(11) NOT NULL,
+  `id_kamar` int(11) NOT NULL,
+  `id_penyewa` int(11) NOT NULL,
+  `id_admin` int(11) NOT NULL,
+  `tgl_sewa` date NOT NULL,
+  `lama_sewa` int(11) NOT NULL,
+  `status_pembayaran` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_sewa`
+--
+
+INSERT INTO `tbl_sewa` (`id_sewa`, `id_kamar`, `id_penyewa`, `id_admin`, `tgl_sewa`, `lama_sewa`, `status_pembayaran`) VALUES
+(1, 1, 1, 1, '2019-12-02', 1, 0),
+(2, 2, 1, 1, '2019-12-02', 2, 0);
 
 --
 -- Indexes for dumped tables
@@ -139,6 +163,15 @@ ALTER TABLE `tbl_penyewa`
   ADD KEY `4` (`username`);
 
 --
+-- Indeks untuk tabel `tbl_sewa`
+--
+ALTER TABLE `tbl_sewa`
+  ADD PRIMARY KEY (`id_sewa`),
+  ADD KEY `admin` (`id_admin`),
+  ADD KEY `penyewa` (`id_penyewa`),
+  ADD KEY `kamar` (`id_kamar`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -161,6 +194,12 @@ ALTER TABLE `tbl_penyewa`
   MODIFY `id_penyewa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT untuk tabel `tbl_sewa`
+--
+ALTER TABLE `tbl_sewa`
+  MODIFY `id_sewa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
@@ -175,6 +214,14 @@ ALTER TABLE `tbl_admin`
 --
 ALTER TABLE `tbl_penyewa`
   ADD CONSTRAINT `4` FOREIGN KEY (`username`) REFERENCES `tbl_akun` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `tbl_sewa`
+--
+ALTER TABLE `tbl_sewa`
+  ADD CONSTRAINT `admin` FOREIGN KEY (`id_admin`) REFERENCES `tbl_admin` (`id_admin`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `kamar` FOREIGN KEY (`id_kamar`) REFERENCES `tbl_kamar` (`id_kamar`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `penyewa` FOREIGN KEY (`id_penyewa`) REFERENCES `tbl_penyewa` (`id_penyewa`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

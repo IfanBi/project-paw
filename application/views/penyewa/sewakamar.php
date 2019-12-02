@@ -123,41 +123,42 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Daftar Kamar Tersedia</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Sewa Kamar</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-area">
-                  <?= $this->session->flashdata('message'); ?>
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Harga</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php foreach ($kamartersedia->result_array() as $row): ?>
-                        <tr>
-                          <td><?=$row['id_kamar']?></td>
-                          <td><?=$row['harga_kamar']?></td>
-                          <td>
-                            <?php if ($row['status_kamar']==1): ?>
-                              <span class="badge badge-success">Tersedia</span>
-                            <?php endif ?>
-                            <?php if ($row['status_kamar']==0): ?>
-                              <span class="badge badge-danger">Tidak Tersedia</span>
-                            <?php endif ?>
-                          </td>
-                          <td>
-                            <a class="btn btn-primary btn-sm" href="<?= base_url('penyewa/sewakamar/'.$row['id_kamar']); ?>">Sewa Kamar</a>
-                          </td>
-                        </tr>
-                      <?php endforeach ?>
-                    </tbody>
-                  </table>
+                  <form method="post" action="<?= base_url('penyewa/sewakamar/'.$kamar['id_kamar']); ?>">
+                    <div class="form-group row">
+                      <label for="kamar" class="col-sm-3 col-form-label">Kamar</label>
+                      <div class="col-sm-9">
+                        <input type="text" readonly class="form-control-plaintext" id="kamar" value="<?=$kamar['id_kamar'];?>">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="tgl" class="col-sm-3 col-form-label">Tanggal Sewa</label>
+                      <div class="col-sm-9">
+                        <input type="text" readonly class="form-control-plaintext" id="tgl" value="<?=date('d-m-Y');?>">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="harga" class="col-sm-3 col-form-label">Harga</label>
+                      <div class="col-sm-9">
+                        <input type="text" readonly class="form-control-plaintext" value="<?=$kamar['harga_kamar'];?>">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="lamasewa" class="col-sm-3 col-form-label">Lama Sewa</label>
+                      <div class="col-sm-3">
+                        <input type="number" class="form-control" name="lamasewa" id="lamasewa">
+                      </div>
+                      <label for="lamasewa" class="col-sm-3 col-form-label">Bulan</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-user btn-block" name="submit">
+                      Sewa
+                    </button>
+                    <a class="btn btn-secondary btn-user btn-block" href="<?= base_url('penyewa/daftarkamar'); ?>">Batal</a>
+                  </form>
                   </div>
                 </div>
               </div>
@@ -192,7 +193,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-   <!-- Logout Modal-->
+  <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
