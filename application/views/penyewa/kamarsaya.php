@@ -152,6 +152,10 @@
                       <td><?=$sewa['lama_sewa'];?> Bulan</td>
                     </tr>
                     <tr>
+                      <td>Sewa Berakhir Pada</td>
+                      <td><?=date('d F Y', strtotime('+'.$sewa['lama_sewa'].' month', strtotime($sewa['tgl_sewa'])))?></td>
+                    </tr>
+                    <tr>
                       <td>Total Harga</td>
                       <td>Rp. <?=number_format($sewa['lama_sewa']*$kamar['harga_kamar'], 0, ",", ".");?></td>
                     </tr>
@@ -260,6 +264,10 @@
             <tr>
               <td>Lama Sewa</td>
               <td><?=$sewa['lama_sewa'];?> Bulan</td>
+            </tr>
+            <tr>
+              <td>Sewa Berakhir Pada</td>
+              <td><?=date('d F Y', strtotime('+'.$sewa['lama_sewa'].' month', strtotime($sewa['tgl_sewa'])))?> Bulan</td>
             </tr>
             <tr>
               <td>Total Harga</td>
