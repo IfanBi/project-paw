@@ -128,15 +128,14 @@
                 <!-- Card Body -->
                 <div class="card-body">
                   <form class="user" method="post" action="<?= base_url('admin/addroom/'); ?>">
-                <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="harga_kamar" name="harga_kamar" placeholder="Harga Kamar" value="">
-                  <?= form_error('harga', '<small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-                
-                <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
-                  Tambah
-                </button>
-              </form>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" id="harga_kamar" name="harga_kamar" placeholder="Harga Kamar" value="">
+                      <?= form_error('harga', '<small class="text-danger pl-3">', '</small>'); ?>
+                    </div>
+                    <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
+                      Tambah
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>

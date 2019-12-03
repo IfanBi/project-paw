@@ -126,26 +126,24 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
-                    <table class="table table-hover">
-                      <thead>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Nama</th>
+                        <th>Alamat</th>
+                        <th>Telepon</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach ($kontakadmin->result_array() as $row): ?>
                         <tr>
-                          <th>Nama</th>
-                          <th>Alamat</th>
-                          <th>Telepon</th>
+                          <td><?=$row['nama_admin']?></td>
+                          <td><?=$row['alamat_admin']?></td>
+                          <td><?=$row['telp_admin']?></td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        <?php foreach ($kontakadmin->result_array() as $row): ?>
-                          <tr>
-                            <td><?=$row['nama_admin']?></td>
-                            <td><?=$row['alamat_admin']?></td>
-                            <td><?=$row['telp_admin']?></td>
-                          </tr>
-                        <?php endforeach ?>
-                      </tbody>
-                    </table>
-                  </div>
+                      <?php endforeach ?>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

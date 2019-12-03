@@ -191,4 +191,34 @@ class Penyewa extends CI_Controller
 			$this->load->view('penyewa/resetpass', $data);
 		}
 	}
+
+	public function editprof($username)
+	{
+		$data['useractive'] = $this->db->get_where('tbl_penyewa', ['username'=>$this->session->userdata('username')])->row_array();
+
+		if (isset($_POST['submit'])) {
+			$this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+			$this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+			$this->form_validation->set_rules('telp', 'Nomor Telepon', 'required|trim|numeric|min_length[11]');
+
+			if ($this->form_validation->run() == false) 
+			{
+				$this->load->view('penyewa/editprof', $data);
+			}else{
+				$up = array(
+					'nama_penyewa' => $this->input->post('nama'),
+					'alamat_penyewa' => $this->input->post('alamat'),
+					'telp_penyewa' => $this->input->post('telp')
+				);
+				$this->db->where('username', $username);
+				$this->db->update('tbl_penyewa', $up);
+
+				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profil Berhasil diubah!</div>');
+				redirect('penyewa/');
+			}
+		}else{
+			$this->load->view('penyewa/editprof', $data);
+		}
+		
+	}
 }

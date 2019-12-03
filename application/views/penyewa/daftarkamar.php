@@ -127,7 +127,6 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
                   <?= $this->session->flashdata('message'); ?>
                   <table class="table table-hover">
                     <thead>
@@ -163,7 +162,6 @@
                       <?php endforeach ?>
                     </tbody>
                   </table>
-                  </div>
                 </div>
               </div>
             </div>
