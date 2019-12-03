@@ -39,7 +39,7 @@
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="<?= base_url('admin/daftarkamar'); ?>">
           <i class="fas fa-fw fa-list-alt"></i>
           <span>Daftar Kamar</span>
@@ -57,6 +57,7 @@
           <span>Daftar Transaksi</span>
         </a>
       </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -122,88 +123,24 @@
               <div class="card shadow mb-4">
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Daftar Kamar Tersedia</h6>
-                  <a class="btn btn-primary btn-sm" href="<?= base_url('admin/addroom'); ?>">Tambah</a>
+                  <h6 class="m-0 font-weight-bold text-primary">Tambah Kamar</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <?= $this->session->flashdata('message'); ?>
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Harga</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php foreach ($kamartersedia->result_array() as $row): ?>
-                        <tr>
-                          <td><?=$row['id_kamar']?></td>
-                          <td><?=$row['harga_kamar']?></td>
-                          <td>
-                            <?php if ($row['status_kamar']==1): ?>
-                              <span class="badge badge-success">Tersedia</span>
-                            <?php endif ?>
-                            <?php if ($row['status_kamar']==0): ?>
-                              <span class="badge badge-danger">Tidak Tersedia</span>
-                            <?php endif ?>
-                          </td>
-                          <td>
-                            <a class="btn btn-primary btn-sm" href="<?= base_url('admin/'); ?>">Edit</a>
-                          </td>
-                        </tr>
-                      <?php endforeach ?>
-                    </tbody>
-                  </table>
+                  <form class="user" method="post" action="<?= base_url('admin/addroom/'); ?>">
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="harga_kamar" name="harga_kamar" placeholder="Harga Kamar" value="">
+                  <?= form_error('harga', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
-              </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-              <div class="card shadow mb-4">
-                <!-- Card Header -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Daftar Kamar Tidak Tersedia</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <?= $this->session->flashdata('message'); ?>
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Harga</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php foreach ($kamartaktersedia->result_array() as $row): ?>
-                        <tr>
-                          <td><?=$row['id_kamar']?></td>
-                          <td><?=$row['harga_kamar']?></td>
-                          <td>
-                            <?php if ($row['status_kamar']==1): ?>
-                              <span class="badge badge-success">Tersedia</span>
-                            <?php endif ?>
-                            <?php if ($row['status_kamar']==0): ?>
-                              <span class="badge badge-danger">Tidak Tersedia</span>
-                            <?php endif ?>
-                          </td>
-                          <td>
-                            <a class="btn btn-primary btn-sm" href="<?= base_url('admin/'); ?>">Edit</a>
-                            <a class="btn btn-primary btn-sm" href="<?= base_url('admin/'); ?>">Detail</a>
-                          </td>
-                        </tr>
-                      <?php endforeach ?>
-                    </tbody>
-                  </table>
+                
+                <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
+                  Tambah
+                </button>
+              </form>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
         <!-- /.container-fluid -->
 
@@ -232,7 +169,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-   <!-- Logout Modal-->
+  <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">

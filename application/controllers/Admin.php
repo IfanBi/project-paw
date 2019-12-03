@@ -170,10 +170,33 @@ class Admin extends CI_Controller
 		}else{
 			$this->load->view('admin/editprof', $data);
 		}
-
-
-		///////
 		
+	}
+	public function addroom()
+	{
+		$data['useractive'] = $this->db->get_where('tbl_admin', ['username'=>$this->session->userdata('username')])->row_array();
+
+		if (isset($_POST['submit'])) {
+
+			$this->form_validation->set_rules('harga_kamar', 'Harga Kamar', 'required|trim|numeric');
+
+			if ($this->form_validation->run() == false) 
+			{
+				$this->load->view('admin/addroom');
+			}else{
+				$kamar = [
+					'harga_kamar' => $this->input->post('harga_kamar'),
+					'status_kamar' => 1
+				];
+				$this->db->insert('tbl_kamar', $kamar);
+				redirect('admin/daftarkamar');
+			}
+
+
+
+		} else {
+			$this->load->view('admin/addroom',$data);
+		}
 	}
 
 }
