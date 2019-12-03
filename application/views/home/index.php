@@ -86,7 +86,7 @@
       </header>
 
       <div class="ftco-blocks-cover-1">
-        <div class="ftco-cover-1 overlay" style="background-image: url('<?= base_url('assets/')?>images/back.jpeg')">
+        <div class="ftco-cover-1 overlay" style="background-image: url('<?= base_url('assets/')?>images/kos_besar.jpg')">
           <div class="container">
             <div class="row align-items-center">
               <div class="col-lg-6">
@@ -99,7 +99,7 @@
         </div>
         <!-- END .ftco-cover-1 -->
         <div class="ftco-service-image-1 pb-5">
-          <div class="container">
+          <div class=" ">
 
           </div>
         </div>
