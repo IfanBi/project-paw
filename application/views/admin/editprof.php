@@ -45,7 +45,7 @@
           <span>Daftar Kamar</span>
         </a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="<?= base_url('admin/daftarakun'); ?>">
           <i class="fas fa-fw fa-address-book"></i>
           <span>Daftar Akun</span>
