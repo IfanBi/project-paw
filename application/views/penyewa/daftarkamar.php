@@ -152,7 +152,12 @@
                             <?php endif ?>
                           </td>
                           <td>
-                            <a class="btn btn-primary btn-sm" href="<?= base_url('penyewa/sewakamar/'.$row['id_kamar']); ?>">Sewa Kamar</a>
+                            <?php if ($useractive['punyakamar']==0): ?>
+                              <a class="btn btn-primary btn-sm" href="<?= base_url('penyewa/sewakamar/'.$row['id_kamar']); ?>">Sewa Kamar</a>
+                            <?php endif ?>
+                            <?php if ($useractive['punyakamar']==1): ?>
+                              <a class="btn btn-primary btn-sm" href="<?= base_url('penyewa/kamarsaya'); ?>">Sewa Kamar</a>
+                            <?php endif ?>
                           </td>
                         </tr>
                       <?php endforeach ?>
@@ -192,24 +197,24 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-   <!-- Logout Modal-->
+  <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Yakin untuk Logout ?</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Logout</a>
-          </div>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Yakin untuk Logout ?</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Logout</a>
         </div>
       </div>
     </div>
+  </div>
   <!-- Bootstrap core JavaScript-->
   <script src="<?= base_url('assets/')?>vendor/jquery/jquery.min.js"></script>
   <script src="<?= base_url('assets/')?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

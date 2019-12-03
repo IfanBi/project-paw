@@ -97,7 +97,7 @@
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
-                <a class="dropdown-item" href="<?= base_url('penyewa/'); ?>">
+                <a class="dropdown-item" href="<?= base_url('penyewa/resetpass/'.$useractive['username']); ?>">
                   <i class="fas fa-edit fa-sm fa-fw mr-2 text-gray-400"></i>
                   Ganti Password
                 </a>
@@ -127,23 +127,60 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
-                    <?= $this->session->flashdata('message'); ?>
-                    <table class="table table-borderless">
-                      <tr>
-                        <td>Kamar</td><td> : </td><td><?=$sewa['id_kamar'];?></td>
-                      </tr>
-                      <tr>
-                        <td>Tanggal Sewa</td><td> : </td><td><?=$sewa['tgl_sewa'];?></td>
-                      </tr>
-                      <tr>
-                        <td>Lama Sewa</td><td> : </td><td><?=$sewa['lama_sewa'];?></td>
-                      </tr>
-                      <tr>
-                        <td>Status Pembayaran</td><td> : </td><td><?=$sewa['status_pembayaran'];?></td>
-                      </tr>
-                    </table>
+                  <?= $this->session->flashdata('message'); ?>
+                  <?php if ($useractive['punyakamar']==0): ?>
+                  <div class="alert alert-danger" role="alert">
+                    Anda Belum Menyewa Kamar!
                   </div>
+                  <?php endif ?>
+                  <?php if ($useractive['punyakamar']==1): ?>
+                  <table class="table table-hover table-borderless">
+                    <tr>
+                      <td>Nomor Kamar</td>
+                      <td><?=$sewa['id_kamar'];?></td>
+                    </tr>
+                    <tr>
+                      <td>Harga Kamar</td>
+                      <td>Rp. <?=number_format($kamar['harga_kamar'], 0, ",", ".");?></td>
+                    </tr>
+                    <tr>
+                      <td>Tanggal Sewa</td>
+                      <td><?=date("d F Y", strtotime($sewa['tgl_sewa']));?></td>
+                    </tr>
+                    <tr>
+                      <td>Lama Sewa</td>
+                      <td><?=$sewa['lama_sewa'];?> Bulan</td>
+                    </tr>
+                    <tr>
+                      <td>Total Harga</td>
+                      <td>Rp. <?=number_format($sewa['lama_sewa']*$kamar['harga_kamar'], 0, ",", ".");?></td>
+                    </tr>
+                    <tr>
+                      <td>Status Pembayaran</td>
+                      <td>
+                        <?php if ($sewa['status_pembayaran']==0): ?>
+                        Belum Lunas
+                        <?php endif ?>
+                        <?php if ($sewa['status_pembayaran']==1): ?>
+                        Lunas
+                        <?php endif ?>
+                      </td>
+                    </tr>
+                  </table>
+                  <?php if ($sewa['status_pembayaran']==0): ?>
+                  <div class="alert alert-danger" role="alert">
+                    Segera Lakukan Pembayaran ke Admin Sebelum Tanggal<br>
+                    <?=date("d F Y", strtotime('+2 days', strtotime($sewa['tgl_sewa'])))?> !
+                  </div>
+                  <?php endif ?>
+                  <?php if ($sewa['status_pembayaran']==0): ?>
+                  <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#ModalBatalSewa">Batal Sewa</a>
+                  <?php endif ?>
+                  <?php if ($sewa['status_pembayaran']==1): ?>
+                  <a class="btn btn-primary" href="<?= base_url('penyewa/'); ?>">Tambah Waktu Sewa</a>
+                  <a class="btn btn-danger" href="<?= base_url('penyewa/'); ?>">Berhenti Sewa</a>
+                  <?php endif ?>
+                  <?php endif ?>
                 </div>
               </div>
             </div>
@@ -177,24 +214,77 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-   <!-- Logout Modal-->
+  <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Yakin untuk Logout ?</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Logout</a>
-          </div>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Anda Akan Logout</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Logout</a>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Batal Sewa Modal-->
+  <div class="modal fade" id="ModalBatalSewa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Yakin Untuk Membatalkan Sewa?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover table-borderless">
+            <tr>
+              <td>Nomor Kamar</td>
+              <td><?=$sewa['id_kamar'];?></td>
+            </tr>
+            <tr>
+              <td>Harga Kamar</td>
+              <td>Rp. <?=number_format($kamar['harga_kamar'], 0, ",", ".");?></td>
+            </tr>
+            <tr>
+              <td>Tanggal Sewa</td>
+              <td><?=date("d F Y", strtotime($sewa['tgl_sewa']));?></td>
+            </tr>
+            <tr>
+              <td>Lama Sewa</td>
+              <td><?=$sewa['lama_sewa'];?> Bulan</td>
+            </tr>
+            <tr>
+              <td>Total Harga</td>
+              <td>Rp. <?=number_format($sewa['lama_sewa']*$kamar['harga_kamar'], 0, ",", ".");?></td>
+            </tr>
+            <tr>
+              <td>Status Pembayaran</td>
+              <td>
+                <?php if ($sewa['status_pembayaran']==0): ?>
+                Belum Lunas
+                <?php endif ?>
+                <?php if ($sewa['status_pembayaran']==1): ?>
+                Lunas
+                <?php endif ?>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="<?= base_url('penyewa/batalsewa/'.$sewa['id_sewa']); ?>">Yakin</a>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Bootstrap core JavaScript-->
   <script src="<?= base_url('assets/')?>vendor/jquery/jquery.min.js"></script>
   <script src="<?= base_url('assets/')?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

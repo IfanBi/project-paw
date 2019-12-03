@@ -14,6 +14,45 @@ class Admin extends CI_Controller
 				redirect('penyewa');
 			}
 		}
+
+		$query = "SELECT * FROM tbl_sewa";
+		$datasewa = $this->db->query($query);
+		foreach ($datasewa->result_array() as $data) {
+			$tgl_now = date('Y-m-d');
+			$bataspembayaran = date('Y-m-d', strtotime('+2 days', strtotime($data['tgl_sewa'])));
+
+			$batassewa = date('Y-m-d', strtotime('+'.$data['lama_sewa'].' month', strtotime($data['tgl_sewa'])));
+			if ($data['status_pembayaran']==0 && $data['status_sewa']==1) {
+				if ($tgl_now >= $bataspembayaran) {
+					$upsewa = array(
+						'status_sewa' => 0
+					);
+					$this->db->where('id_sewa', $data['id_sewa']);
+					$this->db->update('tbl_sewa', $upsewa);
+
+					$upkamar = array(
+						'status_kamar' => 1
+					);
+					$this->db->where('id_kamar', $data['id_kamar']);
+					$this->db->update('tbl_kamar', $upkamar);
+				}
+			}elseif ($data['status_pembayaran']==1 && $data['status_sewa']==1) {
+				if ($tgl_now >= $batassewa) {
+					$upsewa = array(
+						'status_sewa' => 0
+					);
+					$this->db->where('id_sewa', $data['id_sewa']);
+					$this->db->update('tbl_sewa', $upsewa);
+					
+					$upkamar = array(
+						'status_kamar' => 1
+					);
+					$this->db->where('id_kamar', $data['id_kamar']);
+					$this->db->update('tbl_kamar', $upkamar);
+				}
+			}
+		}
+		
 	}
 
 	public function index()
@@ -82,7 +121,27 @@ class Admin extends CI_Controller
 	}
 
 	public function daftartransaksi(){
-		$this->load->view('admin/daftartransaksi');
+		$data['useractive'] = $this->db->get_where('tbl_admin', ['username'=>$this->session->userdata('username')])->row_array();
+		$query = "SELECT a.id_sewa, a.id_kamar, b.nama_penyewa, a.tgl_sewa, a.lama_sewa, c.harga_kamar, a.status_pembayaran, a.status_sewa
+					FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
+					WHERE a.status_pembayaran=0 AND a.status_sewa=1 AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
+		$data['tbt'] = $this->db->query($query);
+
+		$query = "SELECT a.id_sewa, a.id_kamar, b.nama_penyewa, a.tgl_sewa, a.lama_sewa, c.harga_kamar, a.status_pembayaran, a.status_sewa
+					FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
+					WHERE a.status_pembayaran=1 AND a.status_sewa=1 AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
+		$data['tt'] = $this->db->query($query);
+
+		$query = "SELECT a.id_sewa, a.id_kamar, b.nama_penyewa, a.tgl_sewa, a.lama_sewa, c.harga_kamar, a.status_pembayaran, a.status_sewa
+					FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
+					WHERE a.status_pembayaran=1 AND a.status_sewa=0 AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
+		$data['tts'] = $this->db->query($query);
+
+		$query = "SELECT a.id_sewa, a.id_kamar, b.nama_penyewa, a.tgl_sewa, a.lama_sewa, c.harga_kamar, a.status_pembayaran, a.status_sewa
+					FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
+					WHERE a.status_pembayaran=0 AND a.status_sewa=0 AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
+		$data['tbts'] = $this->db->query($query);
+		$this->load->view('admin/daftartransaksi', $data);
 	}
 
 

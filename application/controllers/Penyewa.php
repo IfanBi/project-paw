@@ -32,11 +32,14 @@ class Penyewa extends CI_Controller
 	public function kamarsaya()
 	{
 		$data['useractive'] = $this->db->get_where('tbl_penyewa', ['username'=>$this->session->userdata('username')])->row_array();
-		$data['kontakadmin'] = $this->db->query(
-			'SELECT nama_admin, alamat_admin, telp_admin
-			FROM tbl_admin'
-		);
-		$data['sewa'] = $this->db->get_where('tbl_sewa', ['id_penyewa'=>$data['useractive']['id_penyewa']])->row_array();
+		$query = "SELECT * FROM tbl_sewa WHERE id_penyewa=".$data['useractive']['id_penyewa']." AND status_sewa=1 ORDER BY id_sewa DESC LIMIT 1";
+		$data['sewa'] = $this->db->query($query)->row_array();
+		if ($data['sewa']) {
+			$data['useractive']['punyakamar']=1;
+			$data['kamar'] = $this->db->get_where('tbl_kamar', ['id_kamar'=>$data['sewa']['id_kamar']])->row_array();
+		}else {
+			$data['useractive']['punyakamar']=0;
+		}
 		$this->load->view('penyewa/kamarsaya', $data);
 	}
 	public function daftarkamar()
@@ -47,6 +50,13 @@ class Penyewa extends CI_Controller
 			FROM tbl_kamar
 			WHERE status_kamar=1'
 		);
+		$query = "SELECT * FROM tbl_sewa WHERE id_penyewa=".$data['useractive']['id_penyewa']." AND status_sewa=1 ORDER BY id_sewa DESC LIMIT 1";
+		$data['sewa'] = $this->db->query($query)->row_array();
+		if ($data['sewa']) {
+			$data['useractive']['punyakamar']=1;
+		}else {
+			$data['useractive']['punyakamar']=0;
+		}
 		$this->load->view('penyewa/daftarkamar', $data);
 	}
 	public function sewakamar($id)
@@ -57,6 +67,7 @@ class Penyewa extends CI_Controller
 		$penyewa = $data['useractive']['id_penyewa'];
 		$tgl = date('Y-m-d');
 		$lamasewa = $this->input->post('lamasewa');
+
 		if (isset($_POST['submit'])) {
 			$this->form_validation->set_rules('lamasewa', 'Lamasewa', 'required');
 			if ($this->form_validation->run() == false) 
@@ -69,7 +80,8 @@ class Penyewa extends CI_Controller
 					'id_admin' => 1,
 					'tgl_sewa' => $tgl,
 					'lama_sewa' => $lamasewa,
-					'status_pembayaran' => 0
+					'status_pembayaran' => 0,
+					'status_sewa' => 1
 				];
 				$this->db->insert('tbl_sewa', $data_sewa);
 				$up = [
@@ -85,6 +97,35 @@ class Penyewa extends CI_Controller
 		}else{
 			$this->load->view('penyewa/sewakamar', $data);
 		}
+	}
+	public function batalsewa($id_sewa)
+	{
+		$data['useractive'] = $this->db->get_where('tbl_penyewa', ['username'=>$this->session->userdata('username')])->row_array();
+		$query = "SELECT * FROM tbl_sewa WHERE id_penyewa=".$data['useractive']['id_penyewa']." AND status_sewa=1 ORDER BY id_sewa DESC LIMIT 1";
+		$datasewa = $this->db->query($query)->row_array();
+		$upsewa = array(
+			'id_sewa' => $datasewa['id_sewa'],
+			'id_kamar' => $datasewa['id_kamar'],
+			'id_penyewa' => $datasewa['id_penyewa'],
+			'id_admin' => $datasewa['id_admin'],
+			'tgl_sewa' => $datasewa['tgl_sewa'],
+			'lama_sewa' => $datasewa['lama_sewa'],
+			'status_pembayaran' => $datasewa['status_pembayaran'],
+			'status_sewa' => 0
+		);
+		$this->db->where('id_sewa', $id_sewa);
+		$this->db->update('tbl_sewa', $upsewa);
+
+		$datakamar = $this->db->get_where('tbl_kamar', ['id_kamar'=>$datasewa['id_kamar']])->row_array();
+		$upkamar = array(
+			'id_kamar' => $datasewa['id_kamar'],
+			'harga_kamar' => $datakamar['harga_kamar'],
+			'status_kamar' => 1
+		);
+		$this->db->where('id_kamar', $datasewa['id_kamar']);
+		$this->db->update('tbl_kamar', $upkamar);
+		redirect('penyewa/kamarsaya');
+	}
 	public function resetpass($username)
 	{
 		$data['useractive'] = $this->db->get_where('tbl_penyewa', ['username'=>$this->session->userdata('username')])->row_array();

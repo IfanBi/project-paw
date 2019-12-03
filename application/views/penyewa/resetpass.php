@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Halaman Admin</title>
+  <title>Halaman Penyewa</title>
 
   <!-- Custom fonts for this template-->
   <link href="<?= base_url('assets/')?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -40,21 +40,21 @@
       <hr class="sidebar-divider my-0">
 
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('penyewa/daftarkamar'); ?>">
+        <a class="nav-link"  href="<?= base_url('penyewa/kamarsaya'); ?>">
+          <i class="fas fa-fw fa-person-booth"></i>
+          <span>Kamar Saya</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  href="<?= base_url('penyewa/daftarkamar'); ?>">
           <i class="fas fa-fw fa-list-alt"></i>
           <span>Daftar Kamar</span>
         </a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="<?= base_url('penyewa/daftarakun'); ?>">
-          <i class="fas fa-fw fa-address-book"></i>
-          <span>Daftar Akun</span>
-        </a>
-      </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('penyewa/daftartransaksi'); ?>">
-          <i class="fas fa-fw fa-file-invoice-dollar"></i>
-          <span>Daftar Transaksi</span>
+        <a class="nav-link"  href="<?= base_url('penyewa/kontakadmin'); ?>">
+          <i class="fas fa-fw fa-phone-square-alt"></i>
+          <span>Kontak Admin</span>
         </a>
       </li>
 
