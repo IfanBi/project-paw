@@ -123,26 +123,57 @@ class Admin extends CI_Controller
 	public function daftartransaksi(){
 		$data['useractive'] = $this->db->get_where('tbl_admin', ['username'=>$this->session->userdata('username')])->row_array();
 		$query = "SELECT a.id_sewa, a.id_kamar, b.nama_penyewa, a.tgl_sewa, a.lama_sewa, c.harga_kamar, a.status_pembayaran, a.status_sewa
-					FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
-					WHERE a.status_pembayaran=0 AND a.status_sewa=1 AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
+		FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
+		WHERE a.status_pembayaran=0 AND a.status_sewa=1 AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
 		$data['tbt'] = $this->db->query($query);
 
 		$query = "SELECT a.id_sewa, a.id_kamar, b.nama_penyewa, a.tgl_sewa, a.lama_sewa, c.harga_kamar, a.status_pembayaran, a.status_sewa
-					FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
-					WHERE a.status_pembayaran=1 AND a.status_sewa=1 AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
+		FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
+		WHERE a.status_pembayaran=1 AND a.status_sewa=1 AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
 		$data['tt'] = $this->db->query($query);
 
 		$query = "SELECT a.id_sewa, a.id_kamar, b.nama_penyewa, a.tgl_sewa, a.lama_sewa, c.harga_kamar, a.status_pembayaran, a.status_sewa
-					FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
-					WHERE a.status_pembayaran=1 AND a.status_sewa=0 AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
+		FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
+		WHERE a.status_pembayaran=1 AND a.status_sewa=0 AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
 		$data['tts'] = $this->db->query($query);
 
 		$query = "SELECT a.id_sewa, a.id_kamar, b.nama_penyewa, a.tgl_sewa, a.lama_sewa, c.harga_kamar, a.status_pembayaran, a.status_sewa
-					FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
-					WHERE a.status_pembayaran=0 AND a.status_sewa=0 AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
+		FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
+		WHERE a.status_pembayaran=0 AND a.status_sewa=0 AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
 		$data['tbts'] = $this->db->query($query);
 		$this->load->view('admin/daftartransaksi', $data);
 	}
+	public function editprof($username)
+	{
+		$data['useractive'] = $this->db->get_where('tbl_admin', ['username'=>$this->session->userdata('username')])->row_array();
 
+		if (isset($_POST['submit'])) {
+			$this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+			$this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+			$this->form_validation->set_rules('telp', 'Nomor Telepon', 'required|trim|numeric|min_length[11]');
+
+			if ($this->form_validation->run() == false) 
+			{
+				$this->load->view('admin/editprof', $data);
+			}else{
+				$up = array(
+					'nama_admin' => $this->input->post('nama'),
+					'alamat_admin' => $this->input->post('alamat'),
+					'telp_admin' => $this->input->post('telp')
+				);
+				$this->db->where('username', $username);
+				$this->db->update('tbl_admin', $up);
+
+				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profil Berhasil diubah!</div>');
+				redirect('admin/');
+			}
+		}else{
+			$this->load->view('admin/editprof', $data);
+		}
+
+
+		///////
+		
+	}
 
 }

@@ -45,7 +45,7 @@
           <span>Daftar Kamar</span>
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="<?= base_url('admin/daftarakun'); ?>">
           <i class="fas fa-fw fa-address-book"></i>
           <span>Daftar Akun</span>
@@ -57,6 +57,7 @@
           <span>Daftar Transaksi</span>
         </a>
       </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -116,41 +117,37 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-          
           <div class="row">
             <!-- Area Chart -->
             <div class="col-lg-6 mb-4">
               <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
+                <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Profil</h6>
-                  <a class="btn btn-primary btn-sm" href="<?= base_url('admin/editprof/'.$useractive['username']); ?>">Edit</a>
+                  <h6 class="m-0 font-weight-bold text-primary">Edit Profil</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
-                    <?= $this->session->flashdata('message'); ?>
-                    <table class="table table-borderless">
-                      <tr>
-                        <td>Nama</td><td> : </td><td><?=$useractive['nama_admin'];?></td>
-                      </tr>
-                      <tr>
-                        <td>Username</td><td> : </td><td><?=$useractive['username'];?></td>
-                      </tr>
-                      <tr>
-                        <td>Alamat</td><td> : </td><td><?=$useractive['alamat_admin'];?></td>
-                      </tr>
-                      <tr>
-                        <td>Telepon</td><td> : </td><td><?=$useractive['telp_admin'];?></td>
-                      </tr>
-                    </table>
-                  </div>
+                  <form class="user" method="post" action="<?= base_url('admin/editprof/'.$useractive['username']); ?>">
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="nama" name="nama" placeholder="Nama Lengkap" value="<?= $useractive['nama_admin']; ?>">
+                  <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="alamat" name="alamat" placeholder="Alamat" value="<?= $useractive['alamat_admin'];?>">
+                  <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="telp" name="telp" placeholder="Nomor Telepon" value="<?= $useractive['telp_admin'];?>">
+                  <?= form_error('telp', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+                <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
+                  Update
+                </button>
+              </form>
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
         <!-- /.container-fluid -->
 
@@ -179,7 +176,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-   <!-- Logout Modal-->
+  <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
