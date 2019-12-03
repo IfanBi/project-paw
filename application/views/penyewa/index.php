@@ -128,23 +128,21 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
-                    <?= $this->session->flashdata('message'); ?>
-                    <table class="table table-borderless">
-                      <tr>
-                        <td>Nama</td><td> : </td><td><?=$useractive['nama_penyewa'];?></td>
-                      </tr>
-                      <tr>
-                        <td>Username</td><td> : </td><td><?=$useractive['username'];?></td>
-                      </tr>
-                      <tr>
-                        <td>Alamat</td><td> : </td><td><?=$useractive['alamat_penyewa'];?></td>
-                      </tr>
-                      <tr>
-                        <td>Telepon</td><td> : </td><td><?=$useractive['telp_penyewa'];?></td>
-                      </tr>
-                    </table>
-                  </div>
+                  <?= $this->session->flashdata('message'); ?>
+                  <table class="table table-borderless">
+                    <tr>
+                      <td>Nama</td><td> : </td><td><?=$useractive['nama_penyewa'];?></td>
+                    </tr>
+                    <tr>
+                      <td>Username</td><td> : </td><td><?=$useractive['username'];?></td>
+                    </tr>
+                    <tr>
+                      <td>Alamat</td><td> : </td><td><?=$useractive['alamat_penyewa'];?></td>
+                    </tr>
+                    <tr>
+                      <td>Telepon</td><td> : </td><td><?=$useractive['telp_penyewa'];?></td>
+                    </tr>
+                  </table>
                 </div>
               </div>
             </div>

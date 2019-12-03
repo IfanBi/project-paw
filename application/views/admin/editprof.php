@@ -128,22 +128,22 @@
                 <!-- Card Body -->
                 <div class="card-body">
                   <form class="user" method="post" action="<?= base_url('admin/editprof/'.$useractive['username']); ?>">
-                <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="nama" name="nama" placeholder="Nama Lengkap" value="<?= $useractive['nama_admin']; ?>">
-                  <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="alamat" name="alamat" placeholder="Alamat" value="<?= $useractive['alamat_admin'];?>">
-                  <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="telp" name="telp" placeholder="Nomor Telepon" value="<?= $useractive['telp_admin'];?>">
-                  <?= form_error('telp', '<small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-                <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
-                  Update
-                </button>
-              </form>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" id="nama" name="nama" placeholder="Nama Lengkap" value="<?= $useractive['nama_admin']; ?>">
+                      <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" id="alamat" name="alamat" placeholder="Alamat" value="<?= $useractive['alamat_admin'];?>">
+                      <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" id="telp" name="telp" placeholder="Nomor Telepon" value="<?= $useractive['telp_admin'];?>">
+                      <?= form_error('telp', '<small class="text-danger pl-3">', '</small>'); ?>
+                    </div>
+                    <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
+                      Update
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
