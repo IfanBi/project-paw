@@ -156,7 +156,7 @@
                               <a class="btn btn-primary btn-sm" href="<?= base_url('penyewa/sewakamar/'.$row['id_kamar']); ?>">Sewa Kamar</a>
                             <?php endif ?>
                             <?php if ($useractive['punyakamar']==1): ?>
-                              <a class="btn btn-primary btn-sm" href="<?= base_url('penyewa/kamarsaya'); ?>">Sewa Kamar</a>
+                              <a class="btn btn-primary btn-sm disabled"  aria-disabled="true" href="<?= base_url('penyewa/kamarsaya'); ?>">Sewa Kamar</a>
                             <?php endif ?>
                           </td>
                         </tr>
