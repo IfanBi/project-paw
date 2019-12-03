@@ -121,34 +121,33 @@
             <!-- Area Chart -->
             <div class="col-lg-6 mb-4">
               <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
+                <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Profil</h6>
-                  <a class="btn btn-primary btn-sm" href="<?= base_url('penyewa/editprof/'.$useractive['username']); ?>">Edit</a>
+                  <h6 class="m-0 font-weight-bold text-primary">Edit Profil</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
-                    <?= $this->session->flashdata('message'); ?>
-                    <table class="table table-borderless">
-                      <tr>
-                        <td>Nama</td><td> : </td><td><?=$useractive['nama_penyewa'];?></td>
-                      </tr>
-                      <tr>
-                        <td>Username</td><td> : </td><td><?=$useractive['username'];?></td>
-                      </tr>
-                      <tr>
-                        <td>Alamat</td><td> : </td><td><?=$useractive['alamat_penyewa'];?></td>
-                      </tr>
-                      <tr>
-                        <td>Telepon</td><td> : </td><td><?=$useractive['telp_penyewa'];?></td>
-                      </tr>
-                    </table>
-                  </div>
+                  <form class="user" method="post" action="<?= base_url('penyewa/editprof/'.$useractive['username']); ?>">
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="nama" name="nama" placeholder="Nama Lengkap" value="<?= $useractive['nama_penyewa']; ?>">
+                  <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="alamat" name="alamat" placeholder="Alamat" value="<?= $useractive['alamat_penyewa'];?>">
+                  <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="telp" name="telp" placeholder="Nomor Telepon" value="<?= $useractive['telp_penyewa'];?>">
+                  <?= form_error('telp', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+                <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
+                  Update
+                </button>
+              </form>
                 </div>
               </div>
             </div>
-          </div>            
+          </div>           
 
         </div>
         <!-- /.container-fluid -->
