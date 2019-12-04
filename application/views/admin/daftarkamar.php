@@ -168,7 +168,6 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <?= $this->session->flashdata('message'); ?>
                   <table class="table table-hover">
                     <thead>
                       <tr>

@@ -72,7 +72,41 @@
                   <li><a href="#why-us-section" class="nav-link">Why Us</a></li>
 
                   <li><a href="#contact-section" class="nav-link">Contact</a></li>
-                  <li><a href="<?= base_url('auth')?>" class="nav">Log in</a></li>
+                  
+                  <?php if (!$this->session->userdata('username')): ?>
+                    <li><a href="<?= base_url('auth')?>" class="nav">Log in</a></li>
+                  <?php endif ?>
+                  <?php if ($this->session->userdata('username')): ?>
+
+
+                    <li class="has-children">
+                    <a href="#" class="nav-link ">
+                      
+                      <?php if ($this->session->userdata('level')==1): ?>
+                            <?= $useractive['nama_admin']; ?>
+                          <?php endif ?>
+
+                          <?php if ($this->session->userdata('level')==2): ?>
+                            <?= $useractive['nama_penyewa']; ?>
+                          <?php endif ?>
+
+                    </a>
+                    <ul class="dropdown arrow-top">
+                      <li><a 
+
+                        <?php if ($this->session->userdata('level')==1): ?>
+                            href="<?= base_url('admin/')?>"
+                          <?php endif ?>
+
+                          <?php if ($this->session->userdata('level')==2): ?>
+                            href="<?= base_url('penyewa/')?>"
+                          <?php endif ?>
+
+                       class="nav-link">Dashboard</a></li>
+                      <li><a href="#" data-toggle="modal" data-target="#logoutModal" class="nav-link">Log out</a></li>
+                    </ul>
+                  </li>
+                  <?php endif ?>
                 </ul>
               </nav>
 
@@ -440,6 +474,24 @@
         </div>
       </footer>
 
+    </div>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Yakin untuk Logout ?</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Logout</a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="<?= base_url('assets/')?>js/jquery-3.3.1.min.js"></script>
