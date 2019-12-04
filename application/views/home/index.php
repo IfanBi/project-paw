@@ -366,56 +366,56 @@
         </div>
       </div>
 
-    <div class="site-section bg-light" id="contact-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 text-center mb-5" data-aos="fade-up" data-aos-delay="">
-            <div class="block-heading-1">
-              <h2>Contact Us</h2>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <div class="bg-white p-3 p-md-5">
-              <h3 class="text-black mb-4">Contact Info</h3>
-              <ul class="list-unstyled footer-link">
-                <li class="d-block mb-3">
-                  <span class="d-block text-black">Address:</span>
-                  <span>34 Street Name, City Name Here, United States</span></li>
-                  <li class="d-block mb-3"><span class="d-block text-black">Phone:</span><span>+1 242 4942 290</span></li>
-                  <li class="d-block mb-3"><span class="d-block text-black">Email:</span><span>info@yourdomain.com</span></li>
-                </ul>
-              </div>
-          </div>
-
-          </div>
-        </div>
-      </div>
-
-
-      <footer class="site-footer">
+      <div class="site-section bg-light" id="contact-section">
         <div class="container">
           <div class="row">
-            <div class="col-md-6">
-              <div class="row">
-                <div class="col-md-7">
-                  <h2 class="footer-heading mb-4">About Us</h2>
-                  <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-                </div>
-                <div class="col-md-4 ml-auto">
-                  <h2 class="footer-heading mb-4">Features</h2>
-                  <ul class="list-unstyled">
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Privacy</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                  </ul>
-                </div>
-
+            <div class="col-12 text-center mb-5" data-aos="fade-up" data-aos-delay="">
+              <div class="block-heading-1">
+                <h2>Contact Us</h2>
               </div>
             </div>
-            <div class="col-md-4 ml-auto">
+          </div>
+          <div class="row">
+            <div class="col-lg-12 mb-5" data-aos="fade-up" data-aos-delay="100">
+              <div class="bg-white p-3 p-md-5">
+                <h3 class="text-black mb-4">Contact Info</h3>
+                <ul class="list-unstyled footer-link">
+                  <li class="d-block mb-3">
+                    <span class="d-block text-black">Address:</span>
+                    <span>34 Street Name, City Name Here, United States</span></li>
+                    <li class="d-block mb-3"><span class="d-block text-black">Phone:</span><span>+1 242 4942 290</span></li>
+                    <li class="d-block mb-3"><span class="d-block text-black">Email:</span><span>info@yourdomain.com</span></li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <footer class="site-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-7">
+                    <h2 class="footer-heading mb-4">About Us</h2>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
+                  </div>
+                  <div class="col-md-4 ml-auto">
+                    <h2 class="footer-heading mb-4">Features</h2>
+                    <ul class="list-unstyled">
+                      <li><a href="#">About Us</a></li>
+                      <li><a href="#">Terms of Service</a></li>
+                      <li><a href="#">Privacy</a></li>
+                      <li><a href="#">Contact Us</a></li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4 ml-auto">
 
                 <h2 class="footer-heading mb-4">Follow Us</h2>
                 <a href="#about-section" class="smoothscroll pl-0 pr-3"><span class="icon-facebook"></span></a>
