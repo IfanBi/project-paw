@@ -189,6 +189,7 @@ class Admin extends CI_Controller
 					'status_kamar' => 1
 				];
 				$this->db->insert('tbl_kamar', $kamar);
+				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kamar ditambahkan!</div>');
 				redirect('admin/daftarkamar');
 			}
 
