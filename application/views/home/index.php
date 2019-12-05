@@ -72,7 +72,41 @@
                   <li><a href="#why-us-section" class="nav-link">Why Us</a></li>
 
                   <li><a href="#contact-section" class="nav-link">Contact</a></li>
-                  <li><a href="<?= base_url('auth')?>" class="nav">Log in</a></li>
+                  
+                  <?php if (!$this->session->userdata('username')): ?>
+                    <li><a href="<?= base_url('auth')?>" class="nav">Log in</a></li>
+                  <?php endif ?>
+                  <?php if ($this->session->userdata('username')): ?>
+
+
+                    <li class="has-children">
+                    <a href="#" class="nav-link ">
+                      
+                      <?php if ($this->session->userdata('level')==1): ?>
+                            <?= $useractive['nama_admin']; ?>
+                          <?php endif ?>
+
+                          <?php if ($this->session->userdata('level')==2): ?>
+                            <?= $useractive['nama_penyewa']; ?>
+                          <?php endif ?>
+
+                    </a>
+                    <ul class="dropdown arrow-top">
+                      <li><a 
+
+                        <?php if ($this->session->userdata('level')==1): ?>
+                            href="<?= base_url('admin/')?>"
+                          <?php endif ?>
+
+                          <?php if ($this->session->userdata('level')==2): ?>
+                            href="<?= base_url('penyewa/')?>"
+                          <?php endif ?>
+
+                       class="nav-link">Dashboard</a></li>
+                      <li><a href="#" data-toggle="modal" data-target="#logoutModal" class="nav-link">Log out</a></li>
+                    </ul>
+                  </li>
+                  <?php endif ?>
                 </ul>
               </nav>
 
@@ -366,56 +400,56 @@
         </div>
       </div>
 
-    <div class="site-section bg-light" id="contact-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 text-center mb-5" data-aos="fade-up" data-aos-delay="">
-            <div class="block-heading-1">
-              <h2>Contact Us</h2>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <div class="bg-white p-3 p-md-5">
-              <h3 class="text-black mb-4">Contact Info</h3>
-              <ul class="list-unstyled footer-link">
-                <li class="d-block mb-3">
-                  <span class="d-block text-black">Address:</span>
-                  <span>34 Street Name, City Name Here, United States</span></li>
-                  <li class="d-block mb-3"><span class="d-block text-black">Phone:</span><span>+1 242 4942 290</span></li>
-                  <li class="d-block mb-3"><span class="d-block text-black">Email:</span><span>info@yourdomain.com</span></li>
-                </ul>
-              </div>
-          </div>
-
-          </div>
-        </div>
-      </div>
-
-
-      <footer class="site-footer">
+      <div class="site-section bg-light" id="contact-section">
         <div class="container">
           <div class="row">
-            <div class="col-md-6">
-              <div class="row">
-                <div class="col-md-7">
-                  <h2 class="footer-heading mb-4">About Us</h2>
-                  <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-                </div>
-                <div class="col-md-4 ml-auto">
-                  <h2 class="footer-heading mb-4">Features</h2>
-                  <ul class="list-unstyled">
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Privacy</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                  </ul>
-                </div>
-
+            <div class="col-12 text-center mb-5" data-aos="fade-up" data-aos-delay="">
+              <div class="block-heading-1">
+                <h2>Contact Us</h2>
               </div>
             </div>
-            <div class="col-md-4 ml-auto">
+          </div>
+          <div class="row">
+            <div class="col-lg-12 mb-5" data-aos="fade-up" data-aos-delay="100">
+              <div class="bg-white p-3 p-md-5">
+                <h3 class="text-black mb-4">Contact Info</h3>
+                <ul class="list-unstyled footer-link">
+                  <li class="d-block mb-3">
+                    <span class="d-block text-black">Address:</span>
+                    <span>34 Street Name, City Name Here, United States</span></li>
+                    <li class="d-block mb-3"><span class="d-block text-black">Phone:</span><span>+1 242 4942 290</span></li>
+                    <li class="d-block mb-3"><span class="d-block text-black">Email:</span><span>info@yourdomain.com</span></li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <footer class="site-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-7">
+                    <h2 class="footer-heading mb-4">About Us</h2>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
+                  </div>
+                  <div class="col-md-4 ml-auto">
+                    <h2 class="footer-heading mb-4">Features</h2>
+                    <ul class="list-unstyled">
+                      <li><a href="#">About Us</a></li>
+                      <li><a href="#">Terms of Service</a></li>
+                      <li><a href="#">Privacy</a></li>
+                      <li><a href="#">Contact Us</a></li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4 ml-auto">
 
                 <h2 class="footer-heading mb-4">Follow Us</h2>
                 <a href="#about-section" class="smoothscroll pl-0 pr-3"><span class="icon-facebook"></span></a>
@@ -440,6 +474,24 @@
         </div>
       </footer>
 
+    </div>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Yakin untuk Logout ?</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Logout</a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="<?= base_url('assets/')?>js/jquery-3.3.1.min.js"></script>
