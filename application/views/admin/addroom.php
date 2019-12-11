@@ -39,7 +39,7 @@
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="<?= base_url('admin/daftarkamar'); ?>">
           <i class="fas fa-fw fa-list-alt"></i>
           <span>Daftar Kamar</span>
