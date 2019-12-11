@@ -10,8 +10,13 @@ class Home extends CI_Controller
 
 	public function index()
 	{
+		$data['kontakadmin'] = $this->db->query(
+			'SELECT nama_admin, alamat_admin, telp_admin
+			FROM tbl_admin'
+		);
 		if (!$this->session->userdata('username')) {
-			$this->load->view('home/index');
+
+			$this->load->view('home/index',$data);
 		} else{
 			if ($this->session->userdata('level')==2) {
 				$data['useractive'] = $this->db->get_where('tbl_penyewa', ['username'=>$this->session->userdata('username')])->row_array();
@@ -21,7 +26,6 @@ class Home extends CI_Controller
 
 			$this->load->view('home/index',$data);
 		}
-		$this->load->view('home/index');
 	}
 	public function kontakadmin()
 	{
@@ -29,6 +33,6 @@ class Home extends CI_Controller
 			'SELECT nama_admin, alamat_admin, telp_admin
 			FROM tbl_admin'
 		);
-		$this->load->view('home/kontakadmin', $data);
+		$this->load->view('home/idex', $data);
 	}
 }

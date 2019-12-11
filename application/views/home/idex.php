@@ -73,40 +73,7 @@
 
                   <li><a href="#contact-section" class="nav-link">Contact</a></li>
                   
-                  <?php if (!$this->session->userdata('username')): ?>
-                    <li><a href="<?= base_url('auth')?>" class="nav">Log in</a></li>
-                  <?php endif ?>
-                  <?php if ($this->session->userdata('username')): ?>
-
-
-                    <li class="has-children">
-                    <a href="#" class="nav-link ">
-                      
-                      <?php if ($this->session->userdata('level')==1): ?>
-                            <?= $useractive['nama_admin']; ?>
-                          <?php endif ?>
-
-                          <?php if ($this->session->userdata('level')==2): ?>
-                            <?= $useractive['nama_penyewa']; ?>
-                          <?php endif ?>
-
-                    </a>
-                    <ul class="dropdown arrow-top">
-                      <li><a 
-
-                        <?php if ($this->session->userdata('level')==1): ?>
-                            href="<?= base_url('admin/')?>"
-                          <?php endif ?>
-
-                          <?php if ($this->session->userdata('level')==2): ?>
-                            href="<?= base_url('penyewa/')?>"
-                          <?php endif ?>
-
-                       class="nav-link">Dashboard</a></li>
-                      <li><a href="#" data-toggle="modal" data-target="#logoutModal" class="nav-link">Log out</a></li>
-                    </ul>
-                  </li>
-                  <?php endif ?>
+                 
                 </ul>
               </nav>
 
