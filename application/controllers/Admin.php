@@ -117,6 +117,10 @@ class Admin extends CI_Controller
 			FROM tbl_kamar
 			WHERE status_kamar=0'
 		);
+		$query = "SELECT a.id_sewa, a.id_kamar, b.nama_penyewa, a.tgl_sewa, a.lama_sewa, c.harga_kamar, a.status_pembayaran, a.status_sewa
+		FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
+		WHERE a.status_sewa=1 AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
+		$data['infokamar'] = $this->db->query($query);
 		$this->load->view('admin/daftarkamar', $data);
 	}
 
@@ -192,12 +196,21 @@ class Admin extends CI_Controller
 				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kamar ditambahkan!</div>');
 				redirect('admin/daftarkamar');
 			}
-
-
-
 		} else {
 			$this->load->view('admin/addroom',$data);
 		}
+	}
+
+	public function verifikasipembayaran($id_sewa)
+	{
+		$data['useractive'] = $this->db->get_where('tbl_admin', ['username'=>$this->session->userdata('username')])->row_array();
+		$up = array(
+			'id_admin' => $data['useractive']['id_admin'],
+			'status_pembayaran' => 1
+		);
+		$this->db->where('id_sewa', $id_sewa);
+		$this->db->update('tbl_sewa', $up);
+		redirect('admin/daftartransaksi');
 	}
 
 }

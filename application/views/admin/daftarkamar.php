@@ -191,8 +191,7 @@
                             <?php endif ?>
                           </td>
                           <td>
-                            <a class="btn btn-primary btn-sm" href="<?= base_url('admin/'); ?>">Edit</a>
-                            <a class="btn btn-primary btn-sm" href="<?= base_url('admin/'); ?>">Detail</a>
+                            <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#DetailKamarModal<?=$row['id_kamar']?>">Detail</a>
                           </td>
                         </tr>
                       <?php endforeach ?>
@@ -231,24 +230,87 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-   <!-- Logout Modal-->
+  <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Yakin untuk Logout ?</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Logout</a>
-          </div>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Yakin untuk Logout ?</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Logout</a>
         </div>
       </div>
     </div>
+  </div>
+
+  <?php foreach ($infokamar->result_array() as $row): ?>
+  <!-- detail kamar Modal-->
+  <div class="modal fade" id="DetailKamarModal<?=$row['id_kamar']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detail Kamar</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover table-borderless">
+              <tr>
+                <td>Nama Penyewa</td>
+                <td><?=$row['nama_penyewa'];?></td>
+              </tr>
+              <tr>
+                <td>Nomor Kamar</td>
+                <td><?=$row['id_kamar'];?></td>
+              </tr>
+              <tr>
+                <td>Harga Kamar</td>
+                <td>Rp. <?=number_format($row['harga_kamar'], 0, ",", ".");?></td>
+              </tr>
+              <tr>
+                <td>Tanggal Sewa</td>
+                <td><?=date("d F Y", strtotime($row['tgl_sewa']));?></td>
+              </tr>
+              <tr>
+                <td>Lama Sewa</td>
+                <td><?=$row['lama_sewa'];?> Bulan</td>
+              </tr>
+              <tr>
+                <td>Sewa Berakhir Pada</td>
+                <td><?=date('d F Y', strtotime('+'.$row['lama_sewa'].' month', strtotime($row['tgl_sewa'])))?></td>
+              </tr>
+              <tr>
+                <td>Total Harga</td>
+                <td>Rp. <?=number_format($row['lama_sewa']*$row['harga_kamar'], 0, ",", ".");?></td>
+              </tr>
+              <tr>
+                <td>Status Pembayaran</td>
+                <td>
+                  <?php if ($row['status_pembayaran']==0): ?>
+                  Belum Lunas
+                  <?php endif ?>
+                  <?php if ($row['status_pembayaran']==1): ?>
+                  Lunas
+                  <?php endif ?>
+                </td>
+              </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php endforeach ?>
+
   <!-- Bootstrap core JavaScript-->
   <script src="<?= base_url('assets/')?>vendor/jquery/jquery.min.js"></script>
   <script src="<?= base_url('assets/')?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
