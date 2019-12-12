@@ -139,7 +139,7 @@
                         <tr>
                           <td><?=$row['nama_admin']?></td>
                           <td><?=$row['alamat_admin']?></td>
-                          <td><?=$row['telp_admin']?></td>
+                          <td><a href="https://wa.me/<?=$row['telp_admin']?>"> <?=$row['telp_admin']?></a></td>
                         </tr>
                       <?php endforeach ?>
                     </tbody>
