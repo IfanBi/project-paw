@@ -213,4 +213,36 @@ class Admin extends CI_Controller
 		redirect('admin/daftartransaksi');
 	}
 
+	public function tambahsewa($id_sewa)
+	{
+		$data['useractive'] = $this->db->get_where('tbl_admin', ['username'=>$this->session->userdata('username')])->row_array();
+		$query = "SELECT a.id_sewa, a.id_kamar, b.nama_penyewa, a.tgl_sewa, a.lama_sewa, c.harga_kamar, a.status_pembayaran, a.status_sewa
+		FROM tbl_sewa a, tbl_penyewa b, tbl_kamar c
+		WHERE a.id_sewa=$id_sewa AND a.id_penyewa=b.id_penyewa AND a.id_kamar=c.id_kamar";
+		$data['tt'] = $this->db->query($query)->row_array();
+		if (isset($_POST['submit'])) {
+
+			$this->form_validation->set_rules('bulan', 'Bulan', 'required|trim|numeric');
+
+			if ($this->form_validation->run() == false) 
+			{
+				$this->load->view('admin/tambahsewa', $data);
+			}else{
+				$bulan = $this->input->post('bulan');
+				$sewa = [
+					'lama_sewa' => $bulan+$data['tt']['lama_sewa']
+				];
+				$this->db->where('id_sewa', $id_sewa);
+				$this->db->update('tbl_sewa', $sewa);
+				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Waktu Sewa Berhasil Ditambah!</div>');
+				redirect('admin/daftartransaksi');
+			}
+		} else {
+			$this->load->view('admin/tambahsewa', $data);
+		}
+		
+
+	}
+
+
 }

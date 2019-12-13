@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Halaman Penyewa</title>
+  <title>Halaman Admin</title>
 
   <!-- Custom fonts for this template-->
   <link href="<?= base_url('assets/')?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -29,7 +29,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <div class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <div class="sidebar-brand d-flex align-items-center justify-content-center">
         <div class="sidebar-brand-icon">
           <i class="fas fa-home"></i>
         </div>
@@ -40,23 +40,24 @@
       <hr class="sidebar-divider my-0">
 
       <li class="nav-item">
-        <a class="nav-link"  href="<?= base_url('penyewa/kamarsaya'); ?>">
-          <i class="fas fa-fw fa-person-booth"></i>
-          <span>Kamar Saya</span>
-        </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link"  href="<?= base_url('penyewa/daftarkamar'); ?>">
+        <a class="nav-link" href="<?= base_url('admin/daftarkamar'); ?>">
           <i class="fas fa-fw fa-list-alt"></i>
           <span>Daftar Kamar</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link"  href="<?= base_url('penyewa/kontakadmin'); ?>">
-          <i class="fas fa-fw fa-phone-square-alt"></i>
-          <span>Kontak Admin</span>
+        <a class="nav-link" href="<?= base_url('admin/daftarakun'); ?>">
+          <i class="fas fa-fw fa-address-book"></i>
+          <span>Daftar Akun</span>
         </a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="<?= base_url('admin/daftartransaksi'); ?>">
+          <i class="fas fa-fw fa-file-invoice-dollar"></i>
+          <span>Daftar Transaksi</span>
+        </a>
+      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -88,16 +89,16 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?=$useractive['nama_penyewa'];?></span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $useractive['nama_admin']; ?></span>
                 <i class="fas fa-fw fa-user-circle"></i>
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="<?= base_url('penyewa/'); ?>">
+                <a class="dropdown-item" href="<?= base_url('admin/'); ?>">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
-                <a class="dropdown-item" href="<?= base_url('penyewa/'); ?>">
+                <a class="dropdown-item" href="<?= base_url('admin/resetpass/'.$useractive['username']); ?>">
                   <i class="fas fa-edit fa-sm fa-fw mr-2 text-gray-400"></i>
                   Ganti Password
                 </a>
@@ -116,55 +117,60 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
           <div class="row">
             <!-- Area Chart -->
             <div class="col-lg-6 mb-4">
               <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
+                <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Sewa Kamar</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Tambah Waktu Sewa</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
-                  <form method="post" action="<?= base_url('penyewa/sewakamar/'.$kamar['id_kamar']); ?>">
-                    <div class="form-group row">
-                      <label for="kamar" class="col-sm-3 col-form-label">Kamar</label>
-                      <div class="col-sm-9">
-                        <input type="text" readonly class="form-control-plaintext" id="kamar" value="<?=$kamar['id_kamar'];?>">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="tgl" class="col-sm-3 col-form-label">Tanggal Sewa</label>
-                      <div class="col-sm-9">
-                        <input type="text" readonly class="form-control-plaintext" id="tgl" value="<?=date('d-m-Y');?>">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="harga" class="col-sm-3 col-form-label">Harga</label>
-                      <div class="col-sm-9">
-                        <input type="text" readonly class="form-control-plaintext" value="<?=$kamar['harga_kamar'];?>">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="lamasewa" class="col-sm-3 col-form-label">Lama Sewa</label>
-                      <div class="col-sm-3">
-                        <input type="number" class="form-control" name="lamasewa" id="lamasewa" min=3>
-                      </div>
-                      <label for="lamasewa" class="col-sm-3 col-form-label">Bulan</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-user btn-block" name="submit">
-                      Sewa
+                  <form class="user" method="post" action="<?= base_url('admin/tambahsewa/'.$tt['id_sewa']); ?>">
+                    <table class="table table-hover table-borderless">
+                      <tr>
+                        <td>Nama Penyewa</td>
+                        <td><?=$tt['nama_penyewa'];?></td>
+                      </tr>
+                      <tr>
+                        <td>Nomor Kamar</td>
+                        <td><?=$tt['id_kamar'];?></td>
+                      </tr>
+                      <tr>
+                        <td>Harga Kamar</td>
+                        <td>Rp. <?=number_format($tt['harga_kamar'], 0, ",", ".");?></td>
+                      </tr>
+                      <tr>
+                        <td>Tanggal Sewa</td>
+                        <td><?=date("d F Y", strtotime($tt['tgl_sewa']));?></td>
+                      </tr>
+                      <tr>
+                        <td>Lama Sewa</td>
+                        <td><?=$tt['lama_sewa'];?> Bulan</td>
+                      </tr>
+                      <tr>
+                        <td>Sewa Berakhir Pada</td>
+                        <td><?=date('d F Y', strtotime('+'.$tt['lama_sewa'].' month', strtotime($tt['tgl_sewa'])))?></td>
+                      </tr>
+                      <tr>
+                        <td>Perpanjang Sewa</td>
+                        <td>
+                          <input type="number" class="form-control" placeholder="Bulan" name="bulan" min=3>
+                        </td>
+                      </tr>
+                    </table>
+                    <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
+                      OK
                     </button>
-                    <a class="btn btn-secondary btn-user btn-block" href="<?= base_url('penyewa/daftarkamar'); ?>">Batal</a>
+                    <a class="btn btn-secondary btn-user btn-block" href="<?= base_url('admin/daftartransaksi')?>">
+                      Batal
+                    </a>
                   </form>
-                  </div>
                 </div>
               </div>
             </div>
-          </div>            
-
+          </div>
         </div>
         <!-- /.container-fluid -->
 
@@ -195,22 +201,22 @@
 
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Yakin untuk Logout ?</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Logout</a>
-          </div>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Yakin untuk Logout ?</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Logout</a>
         </div>
       </div>
     </div>
+  </div>
   <!-- Bootstrap core JavaScript-->
   <script src="<?= base_url('assets/')?>vendor/jquery/jquery.min.js"></script>
   <script src="<?= base_url('assets/')?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

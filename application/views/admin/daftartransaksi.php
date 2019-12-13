@@ -137,7 +137,7 @@
                         <th>Tanggal Sewa</th>
                         <th>Lama Sewa</th>
                         <th>Total Pembayaran</th>
-                        <th>Status Pembayaran</th>
+                        <th>Pembayaran</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -187,8 +187,9 @@
                         <th>Tanggal Sewa</th>
                         <th>Lama Sewa</th>
                         <th>Total Pembayaran</th>
-                        <th>Status Pembayaran</th>
-                        <th>Status Sewa</th>
+                        <th>Pembayaran</th>
+                        <th>Sewa</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -217,6 +218,9 @@
                               <span class="badge badge-danger">Selesai</span>
                             <?php endif ?>
                           </td>
+                          <td>
+                            <a class="btn btn-primary btn-sm" href="<?= base_url('admin/tambahsewa/'.$row['id_sewa']); ?>">Perpanjang Sewa</a>
+                          </td>
                         </tr>
                       <?php endforeach ?>
                     </tbody>
@@ -242,8 +246,8 @@
                         <th>Tanggal Sewa</th>
                         <th>Lama Sewa</th>
                         <th>Total Pembayaran</th>
-                        <th>Status Pembayaran</th>
-                        <th>Status Sewa</th>
+                        <th>Pembayaran</th>
+                        <th>Sewa</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -297,8 +301,8 @@
                         <th>Tanggal Sewa</th>
                         <th>Lama Sewa</th>
                         <th>Total Pembayaran</th>
-                        <th>Status Pembayaran</th>
-                        <th>Status Sewa</th>
+                        <th>Pembayaran</th>
+                        <th>Sewa</th>
                       </tr>
                     </thead>
                     <tbody>
