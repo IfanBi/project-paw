@@ -144,6 +144,7 @@
                           <td><?=$row['nama_penyewa']?></td>
                           <td><?=$row['username']?></td>
                           <td>
+                            <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#detail<?=$row['username']?>">Detail</a>
                             <a class="btn btn-primary btn-sm" href="<?= base_url('admin/resetpass/'.$row['username']); ?>">Reset Password</a>
                           </td>
                         </tr>
@@ -177,6 +178,7 @@
                           <td><?=$row['nama_admin']?></td>
                           <td><?=$row['username']?></td>
                           <td>
+                            <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#detail<?=$row['username']?>">Detail</a>
                             <a class="btn btn-primary btn-sm" href="<?= base_url('admin/resetpass/'.$row['username']); ?>">Reset Password</a>
                           </td>
                         </tr>
@@ -215,24 +217,92 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-   <!-- Logout Modal-->
+  <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Yakin untuk Logout ?</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Logout</a>
-          </div>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Yakin untuk Logout ?</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Logout</a>
         </div>
       </div>
     </div>
+  </div>
+
+  <?php foreach ($daftarakun->result_array() as $row): ?>
+  <div class="modal fade" id="detail<?=$row['username']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detail User</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover table-borderless">
+            <tr>
+              <td>Nama</td>
+              <td><?=$row['nama_penyewa'];?></td>
+            </tr>
+            <tr>
+              <td>Alamat</td>
+              <td><?=$row['alamat_penyewa'];?></td>
+            </tr>
+            <tr>
+              <td>Nomor Telpon</td>
+              <td><a href="https://wa.me/<?=$row['telp_penyewa']?>"> <?=$row['telp_penyewa']?></a></td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php endforeach ?>
+
+  <?php foreach ($akunadmin->result_array() as $row): ?>
+  <div class="modal fade" id="detail<?=$row['username']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detail User</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover table-borderless">
+            <tr>
+              <td>Nama</td>
+              <td><?=$row['nama_admin'];?></td>
+            </tr>
+            <tr>
+              <td>Alamat</td>
+              <td><?=$row['alamat_admin'];?></td>
+            </tr>
+            <tr>
+              <td>Nomor Telpon</td>
+              <td><a href="https://wa.me/<?=$row['telp_admin']?>"> <?=$row['telp_admin']?></a></td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php endforeach ?>
   <!-- Bootstrap core JavaScript-->
   <script src="<?= base_url('assets/')?>vendor/jquery/jquery.min.js"></script>
   <script src="<?= base_url('assets/')?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

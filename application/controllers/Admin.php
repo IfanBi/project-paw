@@ -65,12 +65,12 @@ class Admin extends CI_Controller
 	{
 		$data['useractive'] = $this->db->get_where('tbl_admin', ['username'=>$this->session->userdata('username')])->row_array();
 		$data['daftarakun'] = $this->db->query(
-			'SELECT a.nama_penyewa, b.username, b.password
+			'SELECT a.nama_penyewa, a.alamat_penyewa, a.telp_penyewa, b.username, b.password
 			FROM tbl_penyewa a, tbl_akun b 
 			WHERE a.username=b.username'
 		);
 		$data['akunadmin'] = $this->db->query(
-			'SELECT a.nama_admin, b.username, b.password
+			'SELECT a.nama_admin, a.alamat_admin, a.telp_admin, b.username, b.password
 			FROM tbl_admin a, tbl_akun b 
 			WHERE a.username=b.username'
 		);
