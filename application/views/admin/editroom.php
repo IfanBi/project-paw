@@ -123,17 +123,20 @@
               <div class="card shadow mb-4">
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Tambah Kamar</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Edit Kamar</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <form class="user" method="post" action="<?= base_url('admin/addroom/'); ?>">
+                  <form class="user" method="post" action="<?= base_url('admin/editroom/'.$kamar['id_kamar']); ?>">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" id="harga_kamar" name="harga_kamar" placeholder="Harga Kamar" value="">
+                      <input type="text" class="form-control form-control-user" id="id_kamar" name="id_kamar" placeholder="ID Kamar" value="<?=$kamar['id_kamar']?>" readonly>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" id="harga_kamar" name="harga_kamar" placeholder="Harga Kamar" value="<?=$kamar['harga_kamar'];?>">
                       <?= form_error('harga_kamar', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
-                      Tambah
+                      OK
                     </button>
                   </form>
                 </div>

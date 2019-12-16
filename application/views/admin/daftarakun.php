@@ -160,7 +160,7 @@
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Daftar Akun Admin</h6>
-                  <a class="btn btn-primary btn-sm" href="<?= base_url('admin/'); ?>">Tambah</a>
+                  <a class="btn btn-primary btn-sm" href="<?= base_url('admin/tambahadmin'); ?>">Tambah</a>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">

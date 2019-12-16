@@ -151,7 +151,7 @@
                             <?php endif ?>
                           </td>
                           <td>
-                            <a class="btn btn-primary btn-sm" href="<?= base_url('admin/'); ?>">Edit</a>
+                            <a class="btn btn-primary btn-sm" href="<?= base_url('admin/editroom/'.$row['id_kamar']); ?>">Edit</a>
                           </td>
                         </tr>
                       <?php endforeach ?>

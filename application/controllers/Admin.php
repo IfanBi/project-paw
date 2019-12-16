@@ -186,7 +186,7 @@ class Admin extends CI_Controller
 
 			if ($this->form_validation->run() == false) 
 			{
-				$this->load->view('admin/addroom');
+				$this->load->view('admin/addroom',$data);
 			}else{
 				$kamar = [
 					'harga_kamar' => $this->input->post('harga_kamar'),
@@ -240,8 +240,61 @@ class Admin extends CI_Controller
 		} else {
 			$this->load->view('admin/tambahsewa', $data);
 		}
-		
+	}
+	public function editroom($id_kamar)
+	{
+		$data['useractive'] = $this->db->get_where('tbl_admin', ['username'=>$this->session->userdata('username')])->row_array();
+		$data['kamar'] = $this->db->get_where('tbl_kamar', ['id_kamar'=>$id_kamar])->row_array();
+		if (isset($_POST['submit'])) {
+			$this->form_validation->set_rules('harga_kamar', 'Harga Kamar', 'required|trim|numeric');
 
+			if ($this->form_validation->run() == false) 
+			{
+				$this->load->view('admin/editroom',$data);
+			}else{
+				$kamar = [
+					'harga_kamar' => $this->input->post('harga_kamar')
+				];
+				$this->db->where('id_kamar', $id_kamar);
+				$this->db->update('tbl_kamar', $kamar);
+				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kamar Berhasil diEdit</div>');
+				redirect('admin/daftarkamar');
+			}
+		} else {
+			$this->load->view('admin/editroom',$data);
+		}
+	}
+	public function tambahadmin()
+	{
+		$data['useractive'] = $this->db->get_where('tbl_admin', ['username'=>$this->session->userdata('username')])->row_array();
+		$this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+		$this->form_validation->set_rules('telp', 'Nomor Telepon', 'required|trim|numeric|min_length[11]');
+		$this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[tbl_akun.username]');
+		$this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]',['matches' => 'Password tidak sama', 'min_length' => 'Password terlalu pendek']);
+		$this->form_validation->set_rules('password2', 'Password', 'required|trim|min_length[3]|matches[password1]');
+		if ($this->form_validation->run() == false) 
+		{
+			$this->load->view('admin/tambahadmin',$data);
+		}else{
+			$data_akun = [
+				'username' => $this->input->post('username'),
+				'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+				'level' => 1
+			];
+			$this->db->insert('tbl_akun', $data_akun);
+
+			$data_admin = [
+				'nama_admin' => $this->input->post('nama'),
+				'alamat_admin' => $this->input->post('alamat'),
+				'telp_admin' => $this->input->post('telp'),
+				'username' => $this->input->post('username'),
+			];
+			$this->db->insert('tbl_admin', $data_admin);
+
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akun Berhasil dibuat!</div>');
+			redirect('admin/daftarakun');
+		}
 	}
 
 
